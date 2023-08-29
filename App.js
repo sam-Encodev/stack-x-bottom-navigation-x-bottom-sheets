@@ -1,5 +1,5 @@
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import "react-native-gesture-handler";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import Navigation from "./navigation";

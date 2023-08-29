@@ -1,6 +1,6 @@
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import StackNavigator from "./StackNavigation";
+import StackNavigator from "./Stack";
 
 export default function Navigation() {
   return (

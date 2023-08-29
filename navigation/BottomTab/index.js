@@ -8,7 +8,7 @@ import AddScreen from "./screens/Add";
 import AboutScreen from "./screens/About";
 import SettingsScreen from "./screens/Settings";
 
-import AddBottomSheet from "../../components/AddBottomSheet";
+import BottomSheetComponent from "../../components/BottomSheet";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -45,14 +45,16 @@ export default function BottomTabNavigator() {
         name="AddScreen"
         component={AddScreen}
         options={{
-          tabBarButton: () => <AddBottomSheet />,
+          tabBarButton: () => <BottomSheetComponent />,
         }}
       />
       <BottomTab.Screen
         name="AboutScreen"
         component={AboutScreen}
         options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="information-outline" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="information-outline" color={color} />
+          ),
         }}
       />
       <BottomTab.Screen
