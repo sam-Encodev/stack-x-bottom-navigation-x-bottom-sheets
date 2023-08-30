@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useRef, useMemo, useCallback } from "react";
 import BottomSheet from "@gorhom/bottom-sheet";
 import {
   StyleSheet,
@@ -12,13 +12,13 @@ import { Portal } from "@gorhom/portal";
 
 export default function BottomSheetComponent() {
   // ref
-  const bottomSheetRef = React.useRef(null);
+  const bottomSheetRef = useRef(null);
 
   // variables
-  const snapPoints = React.useMemo(() => [30, "75%"], []);
+  const snapPoints = useMemo(() => [30, "75%"], []);
 
   // callbacks
-  const handleSheetChanges = React.useCallback((index) => {
+  const handleSheetChanges = useCallback((index) => {
     console.log("handleSheetChanges", index);
   }, []);
 
