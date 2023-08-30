@@ -1,5 +1,5 @@
+import React, { Fragment } from "react";
 import BottomSheet from "@gorhom/bottom-sheet";
-import React, { Fragment, useCallback } from "react";
 import {
   StyleSheet,
   View,
@@ -11,9 +11,13 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Portal } from "@gorhom/portal";
 
 export default function BottomSheetComponent() {
+  // ref
   const bottomSheetRef = React.useRef(null);
+
+  // variables
   const snapPoints = React.useMemo(() => [30, "75%"], []);
 
+  // callbacks
   const handleSheetChanges = React.useCallback((index) => {
     console.log("handleSheetChanges", index);
   }, []);
@@ -26,6 +30,30 @@ export default function BottomSheetComponent() {
     bottomSheetRef.current?.close();
   };
 
+  // renders
+  const renderFooter = useCallback(
+    (props) => (
+      <BottomSheetFooter {...props} bottomInset={24}>
+        <View style={styles.footerContainer}>
+          <Text style={styles.footerText}>Footer</Text>
+        </View>
+      </BottomSheetFooter>
+    ),
+    []
+  );
+
+  const renderBackdrop = useCallback(
+    (props) => (
+      <BottomSheetBackdrop
+        {...props}
+        enableTouchThrough={false}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+      />
+    ),
+    []
+  );
+
   return (
     <Fragment>
       <TouchableWithoutFeedback onPress={onAddButtonPress}>
@@ -37,6 +65,8 @@ export default function BottomSheetComponent() {
           index={-1}
           snapPoints={snapPoints}
           onChange={handleSheetChanges}
+          backdropComponent={renderBackdrop}
+          footerComponent={renderFooter}
         >
           <View style={styles.contentContainer}>
             <Text style={styles.bottomSheetTitle}>Add Customer</Text>
