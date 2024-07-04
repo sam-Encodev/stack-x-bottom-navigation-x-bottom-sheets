@@ -6,13 +6,13 @@ import Navigation from "./navigation";
 import { PortalProvider } from "@gorhom/portal";
 
 export default function App() {
-  return (
-    <SafeAreaProvider>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <PortalProvider>
-          <Navigation />
-        </PortalProvider>
-      </GestureHandlerRootView>
-    </SafeAreaProvider>
-  );
+ return (
+  <SafeAreaProvider>
+   <GestureHandlerRootView style={{ flex: 1 }}>
+    <PortalProvider>
+     <Navigation />
+    </PortalProvider>
+   </GestureHandlerRootView>
+  </SafeAreaProvider>
+ );
 }
