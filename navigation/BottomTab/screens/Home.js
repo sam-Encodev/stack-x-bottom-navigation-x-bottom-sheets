@@ -1,10 +1,12 @@
-import * as React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 
-export default function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-    </View>
-  );
-};
+export default function HomeScreen({ navigation }) {
+	return (
+		<View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+			<Text>Home!</Text>
+			<TouchableOpacity onPress={() => navigation.navigate("Sheet")}>
+				<Text>Press me</Text>
+			</TouchableOpacity>
+		</View>
+	);
+}
