@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-import NotFound from "./screens/NotFound";
 import BottomTabNavigator from "../BottomTab";
+import NotFound from "../../screens/NotFoundScreen";
 import BottomSheetComponent from "../../components/BottomSheet";
 
 const Stack = createStackNavigator();

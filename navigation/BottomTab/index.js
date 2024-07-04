@@ -1,11 +1,10 @@
-import * as React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-import HomeScreen from "./screens/Home";
-import AboutScreen from "./screens/About";
-import SettingsScreen from "./screens/Settings";
+import HomeScreen from '../../screens/HomeScreen'
+import AboutScreen from "../../screens/AboutScreen";
+import SettingsScreen from "../../screens/SettingsScreen";
 
 const BottomTab = createBottomTabNavigator();
 
