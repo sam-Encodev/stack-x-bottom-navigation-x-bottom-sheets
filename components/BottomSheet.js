@@ -1,100 +1,65 @@
-import React, { Fragment, useRef, useMemo, useCallback } from "react";
-import BottomSheet from "@gorhom/bottom-sheet";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  Button,
-} from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Portal } from "@gorhom/portal";
+import { useRef, useMemo, useCallback } from "react";
+import { StyleSheet, View, Button } from "react-native";
+import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 
-export default function BottomSheetComponent() {
-  // ref
-  const bottomSheetRef = useRef(null);
+export default function BottomSheetComponent({ navigation }) {
+	// ref
+	const bottomSheetRef = useRef(null);
 
-  // variables
-  const snapPoints = useMemo(() => [30, "75%"], []);
+	// variables
+	const snapPoints = useMemo(() => ["20", "50%"], []);
 
-  // callbacks
-  const handleSheetChanges = useCallback((index) => {
-    console.log("handleSheetChanges", index);
-  }, []);
+	// callbacks
+	const handleSheetChanges = useCallback(
+		(index) => {
+			if (index === -1) {
+				return navigation.goBack();
+			}
+		},
+		[navigation],
+	);
 
-  const onAddButtonPress = () => {
-    bottomSheetRef?.current?.expand();
-  };
+	const handleClosePress = useCallback(() => {
+		navigation.goBack();
+		bottomSheetRef.current?.close();
+	}, [navigation]);
 
-  const handleClosePress = () => {
-    bottomSheetRef.current?.close();
-  };
+	// renders
+	const renderBackdrop = useCallback(
+		(props) => (
+			<BottomSheetBackdrop
+				{...props}
+				enableTouchThrough={false}
+				disappearsOnIndex={-1}
+				appearsOnIndex={0}
+			/>
+		),
+		[],
+	);
 
-  // renders
-  const renderFooter = useCallback(
-    (props) => (
-      <BottomSheetFooter {...props} bottomInset={24}>
-        <View style={styles.footerContainer}>
-          <Text style={styles.footerText}>Footer</Text>
-        </View>
-      </BottomSheetFooter>
-    ),
-    []
-  );
-
-  const renderBackdrop = useCallback(
-    (props) => (
-      <BottomSheetBackdrop
-        {...props}
-        enableTouchThrough={false}
-        disappearsOnIndex={-1}
-        appearsOnIndex={0}
-      />
-    ),
-    []
-  );
-
-  return (
-    <Fragment>
-      <TouchableWithoutFeedback onPress={onAddButtonPress}>
-        <MaterialCommunityIcons name="check" size={24} color="black" />
-      </TouchableWithoutFeedback>
-      <Portal>
-        <BottomSheet
-          ref={bottomSheetRef}
-          index={-1}
-          snapPoints={snapPoints}
-          onChange={handleSheetChanges}
-          backdropComponent={renderBackdrop}
-          footerComponent={renderFooter}
-        >
-          <View style={styles.contentContainer}>
-            <Text style={styles.bottomSheetTitle}>Add Customer</Text>
-
-            <Button
-              onPress={handleClosePress}
-              title="Close Modal"
-              color="black"
-            />
-          </View>
-        </BottomSheet>
-      </Portal>
-    </Fragment>
-  );
+	return (
+		<View style={styles.container}>
+			<BottomSheet
+				ref={bottomSheetRef}
+				index={0}
+				snapPoints={snapPoints}
+				onChange={handleSheetChanges}
+				backdropComponent={renderBackdrop}
+				pressBehavior="collapse"
+				onPress={() => handleClosePress()}
+				enablePanDownToClose={true}
+			>
+				<View>
+					<Button onPress={handleClosePress} title="Close Modal" />
+				</View>
+			</BottomSheet>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 24,
-    backgroundColor: "grey",
-  },
-  contentContainer: {
-    flex: 1,
-    padding: 10,
-  },
-  bottomSheetTitle: {
-    fontSize: 24,
-    fontWeight: "500",
-  },
+	container: {
+		flex: 1,
+		padding: 24,
+	},
 });
